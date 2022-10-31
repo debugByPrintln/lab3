@@ -20,12 +20,12 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.nextButton).setOnClickListener { clickNext() }
 
-        findViewById<TextView>(R.id.winners).text = Logic.getWinnersList()
+        findViewById<TextView>(R.id.winners).text = WinnersList.getWinnersList()
     }
 
     private fun clickNext(){
         val name = findViewById<EditText>(R.id.editText).text.toString().trim()
-        Logic.addNewWinner(name)
+        WinnersList.addNewWinner(name)
         if (isValidName(name)){
             beginGame()
         }

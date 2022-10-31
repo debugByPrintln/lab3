@@ -12,6 +12,7 @@ class GameActivity : AppCompatActivity() {
 
     var score = 0
     var playerScore: TextView? = null
+    var pressed : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,20 +42,27 @@ class GameActivity : AppCompatActivity() {
 
     private fun clickable(image: ImageButton): CountDownTimer {
         image.setOnClickListener {
-            image.setImageResource(R.drawable.hit)
-            score++
-            playerScore?.text = score.toString()
+            if (!pressed){
+                image.setImageResource(R.drawable.hit)
+                score++
+                playerScore?.text = score.toString()
+                pressed = true
+            }
+
         }
 
-        return object : CountDownTimer(1000, 100) {
+        return object : CountDownTimer(3000, 100) {
 
             override fun onTick(millisUntilFinished: Long) {
-
+                if (pressed){
+                    image.setImageResource(R.drawable.hit)
+                }
             }
 
             override fun onFinish() {
                 image.setImageResource(R.drawable.hole)
                 image.setOnClickListener(null)
+                pressed = false
                 playGame()
             }
 
